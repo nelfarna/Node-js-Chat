@@ -1,0 +1,10 @@
+{
+    "name": "WebChat",
+    "version": "0.0.0",
+    "description": "Simple Web Chat",
+    "dependencies": {
+        "socket.io": "latest",
+        "express": "latest",
+    },
+    "author": "Nadia Elfarnawani"
+}

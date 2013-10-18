@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" media="screen" type="text/css" href="css/style.css">
+		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+	</head>
+	<body>
+		
+		<h2 class="title" id="greeting"></h2>
+		<div id="mainBox">
+			<div class="sidebar">
+				<h4>You're are chatting with:</h4>
+				<ul id="clients"></ul>
+			</div>
+			<div class="box">
+				<ul id="messages"></ul>
+			</div>
+			<div class="inputBox">
+					<form id="chat_form">
+						<textarea id="chat_input" rows="7"></textarea>
+						<input type="submit" id="btnSubmit"  value="Send">
+					</form>
+			</div>
+		</div>
+
+		<br class="clear">
+		
+
+		<script>
+
+			// Some initializing stuff such as focusing cursor in textarea
+			$(function() {
+				var txtArea = $("#chat_input");
+				if(txtArea.val() == "") {
+					$("#btnSubmit").attr("disabled", "disabled");
+				} 
+				txtArea.focus();
+			});
+
+			// Prompts user for name when first connecting
+			function userprompt()
+		    {
+			  var name=prompt("Please enter your name: ","");
+			  if (name == '' || name == null) {
+			  		name = "Guest";
+			  } 
+			  return name;
+			}
+
+			// Broadcasts a message and clears text area
+			function send() {
+				var txtArea = $("#chat_input");
+				var message = txtArea.val();
+				socket.emit("message", message);
+				txtArea.val("");
+				$("#btnSubmit").attr("disabled", "disabled");
+		 	}
+
+			var socket = io.connect('192.168.1.105:3000');
+			$('#btnSubmit').click( function(e) {
+				send();
+			});
+
+			// Listen for new connections and ask user to provide their name
+			socket.on('connect', function(data) { 
+				var name = userprompt();
+				socket.emit('join', name);
+			});
+
+			// Listen for special update events such as server unavailable or clients joining chat
+			socket.on('update-event', function(data) {
+				$('#messages').append("<li class='event'>" + data + "</li>");
+			});
+
+			// Listen for general messaging events and display on chat board
+			socket.on('update', function(data) {
+				$('#messages').append("<li><span>" + data.name + ": </span>" + data.message + "</li>");
+			});
+
+			// Listen for client list updates and display new list in sidebar
+			socket.on('update-clients', function(data) {
+				$("#clients").empty();
+				$.each(data, function(index, value) {
+					$('#clients').append("<li><span>" + value + "</span></li>");
+				});
+			});
+
+			// Listen for client disconnect events and display event on chat board
+			socket.on('disconnect', function(){
+				$("#messages").append("<li class='text-warning'>The server is not available</li>");
+				$("#btnSubmit").attr("disabled", "disabled");
+			});
+
+			$("#chat_input").on('keydown', sendAction);
+
+			function sendAction (e) {
+
+				if($("#chat_input").val() != "") {
+					$("#btnSubmit").removeAttr("disabled", "disabled");
+				} else {
+				    $("#btnSubmit").attr("disabled", "disabled");
+				}
+
+				if(e.which == 13) {  // if client hits enter, then broadcast message
+					send();
+				}
+			}
+
+			
+		</script>
+	</body>
+</html>
+	

@@ -1,0 +1,130 @@
+body {
+	color:#444444;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif
+}
+
+h4 {
+	font-weight:normal;
+	font-size:10pt;
+	margin:0 0 0 -5px;
+	background:#777;
+	color:#fff;
+	padding:3px;
+}
+
+em {
+	color:#777;
+}
+
+ul {
+
+	list-style-type:none;
+	color:#440000;
+	margin:0;
+	padding:0;
+	
+}
+
+li {
+  text-decoration: none;
+  color: Black;
+  display: block;
+  margin:3px;
+  padding:3px;
+ 
+}
+
+li span {
+	color:#000;
+	font-weight:bold;
+}
+
+li.text-warning {
+	font-size:10pt;
+	color:#777;
+	font-style:italic;
+}
+
+li.event {
+	font-size: 11pt;
+	color:#555;
+	padding-top:0px;
+	padding-bottom:0px;
+}
+
+input {
+    margin:0;
+    padding:5px;
+    font-size:11pt;
+}
+
+textarea {
+	width:350px;
+	height:80px;
+	padding:0px;
+	margin:0;
+	border:1px solid blue;
+	font-size:11pt;
+}
+
+
+.mainBox {
+	height:400px;
+	width:600px;
+	display:block;
+	float:left;
+}
+
+.box {
+	border:1px solid #999;
+	padding:0px;
+	height: 318px;
+	width:350px;
+	margin:0;
+	overflow:scroll;
+}
+
+.inputBox {
+	margin:0;
+}
+
+.inputBox form {
+	width:105px;
+	display:inline;
+	margin-left:0px;
+	margin-top:0px;
+}
+
+.sidebar {
+	border:1px solid #999;
+	height:400px;
+	width:160px;
+	padding-left:5px;
+	float:left;
+	margin-right:0px;
+}
+
+.clear {
+	clear:both;
+}
+
+.client0 {
+	color:Red;
+}
+
+.client1 {
+	color:Green;
+}
+
+.client2 {
+	color:Blue;
+}
+
+.client3 {
+	color:Magenta;
+}
+
+.client4 {
+	color:GRAY;
+}
+
